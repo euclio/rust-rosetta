@@ -20,6 +20,7 @@
 //!     Here am I
 //!     ```
 
+#![allow(clippy::missing_safety_doc)]
 #![crate_type = "dylib"]
 
 extern crate libc;

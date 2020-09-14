@@ -1,11 +1,14 @@
-/// This implementation uses an addressable vector as the tree's store.
-/// It is possible to construct a mutable tree using Rc<RefCell<>>,
-/// but it adds some complexity.
-///
-/// "Pointers" to nodes are indices into the vector store, and have
-/// trait Copy.
-///
-/// The index of a node in the vector store should not be confused with its key.
+//! This implementation uses an addressable vector as the tree's store.
+//! It is possible to construct a mutable tree using Rc<RefCell<>>,
+//! but it adds some complexity.
+//!
+//! "Pointers" to nodes are indices into the vector store, and have
+//! trait Copy.
+//!
+//! The index of a node in the vector store should not be confused with its key.
+
+#![allow(clippy::many_single_char_names)]
+
 extern crate rand;
 extern crate term_painter;
 
@@ -427,13 +430,12 @@ impl<K: Ord + Copy + Debug + Display, V: Debug + Copy + Display> AVLTree<K, V> {
     }
 
     /// Rebalance on delete
+    #[allow(clippy::comparison_chain)]
     pub fn delete_bal(&mut self, k: K) -> Option<Node<K, V>> {
         // slug: (pointer to parent of deleted node, side of deleted node)
         let slug = self.delete(k);
         let (pdel, side) = slug;
-        if pdel.is_none() {
-            return None;
-        };
+        pdel?;
         let ndel = self.get_node(pdel);
 
         let mut p = pdel;
@@ -562,9 +564,8 @@ impl<K: Ord + Copy + Debug + Display, V: Debug + Copy + Display> AVLTree<K, V> {
             elems[hindex] = DisplayElement::SpaceRight;
             // Prepare trunk element in case there is a left subtree
             tail = DisplayElement::TrunkSpace;
-        } else
-        // if side == Side::Left
-        {
+        } else {
+            // if side == Side::Left
             elems[hindex] = DisplayElement::SpaceLeft;
             let parent_p = self.get_pointer(p, Side::Up);
             let gp_p = self.get_pointer(parent_p, Side::Up);
@@ -591,9 +592,9 @@ impl<K: Ord + Copy + Debug + Display, V: Debug + Copy + Display> AVLTree<K, V> {
                 value = Blue.bold().paint(format!("{:.*}", 2, node.value)),
                 width = 4
             );
-            let _ = write!(
+            let _ = writeln!(
                 f,
-                "{bal:<-width$}\n",
+                "{bal:<-width$}",
                 bal = Red.bold().paint(node.balance),
                 width = 2
             );

@@ -5,7 +5,6 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use anyhow::{anyhow, Context, Error};
-use cargo_metadata;
 use reqwest::Url;
 use toml::Value;
 use walkdir::WalkDir;
@@ -57,9 +56,10 @@ where
 
         // If the package has a proc-macro or dylib target, it's probably just a dependency of
         // another task. Skip it.
-        if package.targets.iter().any(|t| {
+        let is_dependency = package.targets.iter().any(|t| {
             t.kind.contains(&String::from("dylib")) || t.kind.contains(&String::from("proc-macro"))
-        }) {
+        });
+        if is_dependency {
             continue;
         }
 

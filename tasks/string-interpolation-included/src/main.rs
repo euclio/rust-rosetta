@@ -1,3 +1,5 @@
+#![allow(clippy::print_literal)]
+
 //! Rust has very powerful string interpolation. [Documentation here][doc]
 //!
 //! [doc]: https://doc.rust-lang.org/stable/std/fmt/

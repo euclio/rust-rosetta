@@ -1,7 +1,7 @@
 fn main() -> Result<(), std::num::ParseFloatError> {
-    let args = std::env::args();
+    let mut args = std::env::args();
     if args.len() == 2 {
-        let k: f64 = args.skip(1).next().unwrap().parse()?;
+        let k: f64 = args.nth(1).unwrap().parse()?;
         if k < 0.0 {
             println!("{:2.2} K is below absolute zero", k);
         } else {

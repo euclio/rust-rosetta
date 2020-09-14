@@ -30,10 +30,13 @@ fn main() {
 }
 
 // we store these to calculate the ln of a hamming number
+#[allow(clippy::excessive_precision)]
 pub const LN_2: f64 =
     0.693_147_180_559_945_309_417_232_121_458_176_568_075_500_134_360_255_254_120_680;
+#[allow(clippy::excessive_precision)]
 pub const LN_3: f64 =
     1.098_612_288_668_109_691_395_245_236_922_525_704_647_490_557_822_749_451_734_694;
+#[allow(clippy::excessive_precision)]
 pub const LN_5: f64 =
     1.609_437_912_434_100_374_600_759_333_226_187_639_525_601_354_268_517_721_912_647;
 
@@ -111,9 +114,9 @@ impl ToBigUint for HammingTriple {
 impl HammingTriple {
     fn new(pow_2: usize, pow_3: usize, pow_5: usize) -> HammingTriple {
         HammingTriple {
-            pow_2: pow_2,
-            pow_3: pow_3,
-            pow_5: pow_5,
+            pow_2,
+            pow_3,
+            pow_5,
             ln: (pow_2 as f64) * LN_2 + (pow_3 as f64) * LN_3 + (pow_5 as f64) * LN_5,
         }
     }

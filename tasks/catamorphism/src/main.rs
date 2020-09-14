@@ -1,8 +1,8 @@
 fn main() {
     let numbers = [1, 2, 3, 4, 5];
-    let sum = numbers.iter().fold(0, |a, n| a + n);
+    let sum = numbers.iter().sum::<i64>();
     println!("{}", sum);
-    let product = numbers.iter().fold(1, |a, n| a * n);
+    let product = numbers.iter().product::<i64>();
     println!("{}", product);
 }
 

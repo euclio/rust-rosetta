@@ -1,3 +1,5 @@
+#![allow(clippy::needless_range_loop)]
+
 use std::ops::{Index, IndexMut};
 
 fn main() {
@@ -7,7 +9,7 @@ fn main() {
         ],
         4,
     );
-    let mm = m.solve(&vec![-3., -32., -47., 49.]);
+    let mm = m.solve(&[-3., -32., -47., 49.]);
     println!("{:?}", mm);
 }
 
@@ -39,7 +41,7 @@ impl Matrix {
     }
 
     // Solve linear systems using Cramer's method
-    fn solve(&self, target: &Vec<f64>) -> Vec<f64> {
+    fn solve(&self, target: &[f64]) -> Vec<f64> {
         let mut solution: Vec<f64> = vec![0.; self.dim];
         let denominator = self.det();
         for j in 0..self.dim {

@@ -32,13 +32,13 @@ impl fmt::Display for Ulam {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for row in &self.u {
             let pretty = format!("{:?}", row).replace('\"', "").replace(", ", "");
-            write!(f, "{}\n", pretty)?;
+            writeln!(f, "{}", pretty)?;
         }
         writeln!(f)
     }
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(many_single_char_names))]
+#[allow(clippy::many_single_char_names)]
 fn generate(n: u32, s: u32, c: char) -> Ulam {
     let mut spiral = vec![vec!["".to_string(); n as usize]; n as usize];
     let mut dir = RIGHT;
@@ -57,7 +57,7 @@ fn generate(n: u32, s: u32, c: char) -> Ulam {
 
         match dir {
             RIGHT => {
-                if x as u32 <= n - 1 && spiral[y - 1][x].is_empty() && j > s {
+                if (x as u32) < n && spiral[y - 1][x].is_empty() && j > s {
                     dir = UP;
                 }
             }

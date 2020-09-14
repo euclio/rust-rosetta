@@ -51,16 +51,16 @@ fn handle_server(ip: &str, port: u16) -> Result<TcpListener> {
 
 fn main() {
     let mut args = env::args();
-    let app_name = args.next().unwrap().to_owned();
+    let app_name = args.next().unwrap();
     let host = "127.0.0.1";
-    let port = if let Some(os_port) = args.next() {
-        let s_port = os_port.to_owned();
-        s_port
-            .parse::<u16>()
-            .expect(&*format!("Usage: {:?} <port>", app_name))
-    } else {
-        8080
-    };
+    let port = args
+        .next()
+        .map(|os_port| {
+            os_port
+                .parse::<u16>()
+                .expect(&*format!("Usage: {:?} <port>", app_name))
+        })
+        .unwrap_or(8080);
 
     handle_server(host, port).unwrap();
 }

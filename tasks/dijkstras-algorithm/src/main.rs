@@ -9,6 +9,8 @@ type Edge = (Node, Node);
 /// The `DistPair` struct is for the priority queue.
 #[derive(Eq, PartialEq, PartialOrd)]
 struct DistPair(Node, Cost);
+
+#[allow(clippy::derive_ord_xor_partial_ord)]
 impl Ord for DistPair {
     fn cmp(&self, other: &DistPair) -> Ordering {
         let DistPair(_, dist_a) = *self;

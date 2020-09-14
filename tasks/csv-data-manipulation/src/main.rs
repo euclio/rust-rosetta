@@ -8,6 +8,7 @@ fn check_csv_length(values: &[Vec<String>], line_length: usize) -> Result<(), St
     }
 }
 
+#[allow(clippy::bind_instead_of_map)]
 fn csv_sum(csv: &str) -> Result<Vec<Vec<String>>, String> {
     let mut lines: Vec<Vec<String>> = csv
         .split('\n')
@@ -54,7 +55,7 @@ fn csv_sum(csv: &str) -> Result<Vec<Vec<String>>, String> {
                         'sum: for value in f64_values {
                             match value {
                                 Ok(v) => {
-                                    sum = sum.and_then(|f64_value| Ok(f64_value + v));
+                                    sum = sum.map(|f64_value| f64_value + v);
                                 }
                                 Err(e) => {
                                     sum = Err(format!(

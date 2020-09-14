@@ -136,7 +136,7 @@ impl<K: Ord + Copy + Debug + Display, V: Debug + Copy + Display> Tree<K, V> {
         let mut p = self.root; // Possibly None
         let mut prev = p;
         let mut side = Side::Left;
-        while let Some(_) = p {
+        while p.is_some() {
             prev = p;
             match n.key.cmp(&self.get_key(p)) {
                 Ordering::Less => {
@@ -217,9 +217,9 @@ impl<K: Ord + Copy + Debug + Display, V: Debug + Copy + Display> Tree<K, V> {
             key = Green.bold().paint(node.key),
             width = 2
         );
-        let _ = write!(
+        let _ = writeln!(
             f,
-            "{value:>width$}\n",
+            "{value:>width$}",
             value = Blue.bold().paint(format!("{:.*}", 2, node.value)),
             width = 4
         );
